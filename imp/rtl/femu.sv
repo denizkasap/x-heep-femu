@@ -157,7 +157,7 @@ module femu
   logic AXI_M_ADC_wready_sig;
   logic [3:0] AXI_M_ADC_wstrb_sig;
   logic AXI_M_ADC_wvalid_sig;
-  
+
   logic [AXI_ADDR_WIDTH - 1:0] AXI_M_OBI_araddr_sig;
   logic [1:0] AXI_M_OBI_arburst_sig;
   logic [3:0] AXI_M_OBI_arcache_sig;
@@ -230,7 +230,7 @@ module femu
   logic AXI_S_FLASH_rready_sig;
   logic [1:0] AXI_S_FLASH_rresp_sig;
   logic AXI_S_FLASH_rvalid_sig;
-  
+
   logic [3 : 0] AXI_S_OBI_awaddr_sig;
   logic [2:0] AXI_S_OBI_awprot_sig;
   logic AXI_S_OBI_awready_sig;
@@ -274,11 +274,11 @@ module femu
   // PAD controller
   reg_req_t pad_req;
   reg_rsp_t pad_resp;
-  
+
   obi_req_t obi_req;
   obi_resp_t obi_resp;
-  
-  
+
+
   logic [core_v_mini_mcu_pkg::NUM_PAD-1:0][7:0] pad_attributes;
   logic [core_v_mini_mcu_pkg::NUM_PAD-1:0][3:0] pad_muxes;
 
@@ -373,6 +373,10 @@ module femu
 
   logic gpio_31_in_x,gpio_31_out_x,gpio_31_oe_x;
 
+  logic i2c_scl_in_x,i2c_scl_out_x,i2c_scl_oe_x;
+
+  logic i2c_sda_in_x,i2c_sda_out_x,i2c_sda_oe_x;
+
   logic spi_flash_sck_in_x,spi_flash_sck_out_x,spi_flash_sck_oe_x;
 
   logic spi_flash_cs_0_in_x,spi_flash_cs_0_out_x,spi_flash_cs_0_oe_x;
@@ -414,10 +418,6 @@ module femu
   logic spi2_sd_2_in_x,spi2_sd_2_out_x,spi2_sd_2_oe_x;
 
   logic spi2_sd_3_in_x,spi2_sd_3_out_x,spi2_sd_3_oe_x;
-
-  logic i2c_scl_in_x,i2c_scl_out_x,i2c_scl_oe_x;
-
-  logic i2c_sda_in_x,i2c_sda_out_x,i2c_sda_oe_x;
 
 
   wire         clk_gen;
@@ -599,6 +599,14 @@ module femu
     .gpio_31_o(gpio_31_out_x),
     .gpio_31_oe_o(gpio_31_oe_x),
 
+    .i2c_scl_i(i2c_scl_in_x),
+    .i2c_scl_o(i2c_scl_out_x),
+    .i2c_scl_oe_o(i2c_scl_oe_x),
+
+    .i2c_sda_i(i2c_sda_in_x),
+    .i2c_sda_o(i2c_sda_out_x),
+    .i2c_sda_oe_o(i2c_sda_oe_x),
+
     .spi_flash_sck_i(spi_flash_sck_in_x),
     .spi_flash_sck_o(spi_flash_sck_out_x),
     .spi_flash_sck_oe_o(spi_flash_sck_oe_x),
@@ -682,14 +690,6 @@ module femu
     .spi2_sd_3_i(spi2_sd_3_in_x),
     .spi2_sd_3_o(spi2_sd_3_out_x),
     .spi2_sd_3_oe_o(spi2_sd_3_oe_x),
-
-    .i2c_scl_i(i2c_scl_in_x),
-    .i2c_scl_o(i2c_scl_out_x),
-    .i2c_scl_oe_o(i2c_scl_oe_x),
-
-    .i2c_sda_i(i2c_sda_in_x),
-    .i2c_sda_o(i2c_sda_out_x),
-    .i2c_sda_oe_o(i2c_sda_oe_x),
 
     .intr_vector_ext_i('0),
     .xif_compressed_if(ext_if),
@@ -898,7 +898,7 @@ module femu
     .AXI_M_ADC_wready(AXI_M_ADC_wready_sig),
     .AXI_M_ADC_wstrb(AXI_M_ADC_wstrb_sig),
     .AXI_M_ADC_wvalid(AXI_M_ADC_wvalid_sig),
-    
+
     .AXI_M_OBI_araddr(AXI_M_OBI_araddr_sig),
     .AXI_M_OBI_arburst(AXI_M_OBI_arburst_sig),
     .AXI_M_OBI_arcache(AXI_M_OBI_arcache_sig),
@@ -978,7 +978,7 @@ module femu
     .AXI_S_PERF_CNT_wready(AXI_S_PERF_CNT_wready_sig),
     .AXI_S_PERF_CNT_wstrb(AXI_S_PERF_CNT_wstrb_sig),
     .AXI_S_PERF_CNT_wvalid(AXI_S_PERF_CNT_wvalid_sig),
-    
+
     .AXI_S_OBI_araddr(AXI_S_OBI_araddr_sig),
     .AXI_S_OBI_arprot(AXI_S_OBI_arprot_sig),
     .AXI_S_OBI_arready(AXI_S_OBI_arready_sig),
@@ -1226,8 +1226,8 @@ module femu
     .spi_sdi2(spi_sd_2_out_x),
     .spi_sdi3(spi_sd_3_out_x)
   );
-  
-  
+
+
   axi_address_adder #(
     .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
     .C_S_AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -1268,7 +1268,7 @@ module femu
   ) obi2axi_bridge_virtual_obi_i (
     .clk_i(AXI_ACLK),
     .rst_ni(AXI_ARSTN),
-    
+
     .data_req_i(obi_req[69]),
     .data_gnt_o(obi_resp[33]),
     .data_rvalid_o(obi_resp[32]),
@@ -1277,7 +1277,7 @@ module femu
     .data_be_i(obi_req[67:64]),
     .data_rdata_o(obi_resp[31:0]),
     .data_wdata_i(obi_req[31:0]),
-    
+
     .aw_id_o(AXI_M_OBI_awid_sig),
     .aw_addr_o(AXI_M_OBI_awaddr_in_sig),
     .aw_len_o(AXI_M_OBI_awlen_sig),
@@ -1291,20 +1291,20 @@ module femu
     .aw_qos_o(AXI_M_OBI_awqos_sig),
     .aw_valid_o(AXI_M_OBI_awvalid_sig),
     .aw_ready_i(AXI_M_OBI_awready_sig),
-    
+
     .w_data_o(AXI_M_OBI_wdata_sig),
     .w_strb_o(AXI_M_OBI_wstrb_sig),
     .w_last_o(AXI_M_OBI_wlast_sig),
     .w_user_o(),
     .w_valid_o(AXI_M_OBI_wvalid_sig),
     .w_ready_i(AXI_M_OBI_wready_sig),
-    
+
     .b_id_i(AXI_M_OBI_bid_sig),
     .b_resp_i(AXI_M_OBI_bresp_sig),
     .b_valid_i(AXI_M_OBI_bvalid_sig),
     .b_user_i('0),
     .b_ready_o(AXI_M_OBI_bready_sig),
-    
+
     .ar_id_o(AXI_M_OBI_arid_sig),
     .ar_addr_o(AXI_M_OBI_araddr_in_sig),
     .ar_len_o(AXI_M_OBI_arlen_sig),
@@ -1318,7 +1318,7 @@ module femu
     .ar_qos_o(AXI_M_OBI_arqos_sig),
     .ar_valid_o(AXI_M_OBI_arvalid_sig),
     .ar_ready_i(AXI_M_OBI_arready_sig),
-    
+
     .r_id_i(AXI_M_OBI_rid_sig),
     .r_data_i(AXI_M_OBI_rdata_sig),
     .r_resp_i(AXI_M_OBI_rresp_sig),
@@ -1327,8 +1327,8 @@ module femu
     .r_valid_i(AXI_M_OBI_rvalid_sig),
     .r_ready_o(AXI_M_OBI_rready_sig)
   );
-  
-  
+
+
 
   pad_ring pad_ring_i (
     .clk_io(clk_i),
@@ -1481,6 +1481,8 @@ module femu
 
 
 
+
+
     .spi2_cs_0_io(spi2_cs_0_io),
     .spi2_cs_0_o(spi2_cs_0_in_x),
     .spi2_cs_0_i(spi2_cs_0_out_x),
@@ -1509,14 +1511,6 @@ module femu
     .spi2_sd_3_o(spi2_sd_3_in_x),
     .spi2_sd_3_i(spi2_sd_3_out_x),
     .spi2_sd_3_oe_i(spi2_sd_3_oe_x),
-    .i2c_scl_io(i2c_scl_io),
-    .i2c_scl_o(i2c_scl_in_x),
-    .i2c_scl_i(i2c_scl_out_x),
-    .i2c_scl_oe_i(i2c_scl_oe_x),
-    .i2c_sda_io(i2c_sda_io),
-    .i2c_sda_o(i2c_sda_in_x),
-    .i2c_sda_i(i2c_sda_out_x),
-    .i2c_sda_oe_i(i2c_sda_oe_x),
     .pad_attributes_i(pad_attributes)
   );
 
