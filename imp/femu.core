@@ -86,6 +86,7 @@ filesets:
     - rtl/performance_counters.v: {file_type: verilogSource}
     - rtl/femu.sv: {file_type: systemVerilogSource}
     - pinout/pin_assign.xdc: {file_type: xdc}
+    - vendor/i2c-fpga/rtl/i2c_slave_axil_master.v: {file_type: verilogSource}
 
 parameters:
   PULP_XPULP:

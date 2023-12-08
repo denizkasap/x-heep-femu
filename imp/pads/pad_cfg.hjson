@@ -85,6 +85,16 @@
             num_offset: 2,
             type: inout
         },
+        i2c_scl: {
+            num: 1,
+            keep_internal: True
+            type: inout
+        },
+        i2c_sda: {
+            num: 1,
+            keep_internal: True
+            type: inout
+        },
         spi_flash_sck: {
             num: 1,
             keep_internal: True
@@ -126,14 +136,6 @@
         spi2_sd: {
             num: 4,
             type: inout
-        },
-        i2c_scl: {
-            num: 1,
-            type: inout
-        },
-        i2c_sda: {
-            num: 1,
-            type: inout
-        }
+        }      
     }
 }

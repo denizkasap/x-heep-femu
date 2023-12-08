@@ -49,5 +49,5 @@ set_property -dict {PACKAGE_PIN V15 IOSTANDARD LVCMOS33} [get_ports {spi2_sd_1_i
 set_property -dict {PACKAGE_PIN T15 IOSTANDARD LVCMOS33} [get_ports {spi2_sd_2_io}]
 set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports {spi2_sd_3_io}]
 
-set_property -dict {PACKAGE_PIN P16 IOSTANDARD LVCMOS33} [get_ports {i2c_sda_io}]
-set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {i2c_scl_io}]
+#set_property -dict {PACKAGE_PIN P16 IOSTANDARD LVCMOS33} [get_ports {i2c_sda_io}]
+#set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {i2c_scl_io}]
