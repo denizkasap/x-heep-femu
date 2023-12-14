@@ -1,0 +1,17 @@
+/*
+* Copyright 2023 EPFL
+* Solderpad Hardware License, Version 2.1, see LICENSE.md for details.
+* SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+*
+* Author: Simone Machetti - simone.machetti@epfl.ch
+*/
+
+{
+  name: "i2c-fpga",
+  target_dir: "i2c-fpga",
+
+  upstream: {
+    url: "https://github.com/simone-machetti/i2c-fpga.git",
+    rev: "4a41d477568646617776681cea53ba8a6391c14f",
+  }
+}
